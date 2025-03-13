@@ -14,12 +14,12 @@ import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-config';
 import { getVertexAI, provideVertexAI } from '@angular/fire/vertexai-preview';
-import { firebaseConfig } from '../environments/firebase-config';
+import { environment } from '../environments/firebase-config';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
   provideRouter(routes),
-  provideFirebaseApp(() => initializeApp(firebaseConfig)),
+  provideFirebaseApp(() => initializeApp(environment.firebase)),
   provideAuth(() => getAuth()), provideAnalytics(() => getAnalytics()),
   ScreenTrackingService,
   provideFirestore(() => getFirestore()),
