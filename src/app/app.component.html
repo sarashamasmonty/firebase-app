@@ -1,9 +1,19 @@
 <div style="text-align: center;">
   <h1>Angular 17 Firebase Push Notifications</h1>
-  @if (message) {
-    <p>
-      New Notification: {{ message?.notification?.title }} - {{ message?.notification?.body }}
-    </p>
-  }
 
+  <!-- Display notifications for the current user -->
+  @if (notifications.length > 0) {
+    <div>
+      <h2>Your Notifications</h2>
+      @for (notification of notifications; track $index) {
+        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+          <p><strong>{{ notification.title }}</strong></p>
+          <p>{{ notification.body }}</p>
+          <small>{{ notification.timestamp | date:'medium' }}</small>
+        </div>
+      }
+    </div>
+  } @else {
+    <p>No new notifications.</p>
+  }
 </div>

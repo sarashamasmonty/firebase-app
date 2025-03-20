@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseMessagingService } from './firebase-messaging.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -11,6 +12,7 @@ import { FirebaseMessagingService } from './firebase-messaging.service';
 })
 export class AppComponent implements OnInit {
   message: any;
+  notifications: any[] = []; 
 
   constructor(private firebaseService: FirebaseMessagingService) { }
 
@@ -35,6 +37,20 @@ export class AppComponent implements OnInit {
         .catch((err) => {
           console.log('Service Worker registration failed: ', err);
         });
+    }
+  }
+
+  addNotification(notification: any) {
+    // Add the new notification to the array
+    this.notifications.unshift({
+      title: notification.title,
+      body: notification.body,
+      timestamp: new Date() // Add a timestamp for display
+    });
+
+    // Optional: Limit the number of notifications displayed
+    if (this.notifications.length > 10) {
+      this.notifications.pop(); // Remove the oldest notification
     }
   }
 }
